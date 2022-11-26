@@ -8,6 +8,16 @@ public class Minesweeper{
     fieldVis=new boolean[HEIGHT][WIDTH];
   }
   
+  public void firstToggle(int i, int j){
+    do{
+      field=new int[HEIGHT+2][WIDTH+2];
+      generateMines();
+      generateNumbers();
+    }
+    while(field[i+1][j+1]!=0);
+    toggleCell(i,j,true);
+  }
+
   public void generateNumbers(){
     for(int i=1;i<HEIGHT+1;i++){
       for (int j=1;j<WIDTH+1;j++){
@@ -92,32 +102,36 @@ public class Minesweeper{
         expandVisibility(i,j);
       }
       else{ //flag mode
-        field[i+1][j+1]=FLAG;      }
+        field[i+1][j+1]=FLAG;      
+      }
     }
   }
 
- public  void toggleCellByName(String []name){
+ public  void toggleCellByName(String []name,boolean firstTry){
     boolean mode=true;
     int i=0,j=0;
     boolean correctFormat=true;
     try{
 
-    if(name.length==2 && name[1].equalsIgnoreCase("F"))mode=false;
-    char firstChar=name[0].charAt(0);
-    if(firstChar>='A' && firstChar<='Z')i=firstChar-'A';
-    else if(firstChar>='a'&&firstChar<='z')i=firstChar-'a';
-    else correctFormat=false;
-    if(correctFormat){
-      j=Integer.parseInt(name[0].substring(1));
-    }
-    //toggleCell(Integer.parseInt(line[0])-1,Integer.parseInt(line[1])-1,mode);
+      if(name.length==2 && name[1].equalsIgnoreCase("F"))mode=false;
+      char firstChar=name[0].charAt(0);
+      if(firstChar>='A' && firstChar<='Z')i=firstChar-'A';
+      else if(firstChar>='a'&&firstChar<='z')i=firstChar-'a';
+      else correctFormat=false;
+      if(correctFormat){
+        j=Integer.parseInt(name[0].substring(1));
+      }
     }
     catch(Exception e){
       System.out.println("Errore nell'inserimento dei parametri!");
       correctFormat=false;
     }
-    if(correctFormat)toggleCell(i,j,mode);
-  
+    if(correctFormat){
+     if(firstTry){
+      firstToggle(i,j);
+     }
+      toggleCell(i,j,mode);
+    }
   }
   
  public boolean gameLosed(){

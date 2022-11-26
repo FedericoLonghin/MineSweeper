@@ -4,21 +4,19 @@ public class PlayMinesweeper{
     int w=12,h=20,m=40;
   Minesweeper MS=new Minesweeper(h,w,m);
   Scanner sc=new Scanner(System.in);
-  MS.generateMines();
-  MS.generateNumbers();
   boolean gameStat=false;
+  boolean firstCycle=true;
   do{
     if(MS.gameLosed()||MS.ceckForWin())gameStat=true;
     System.out.print("\033\143"); //clear screen
-    System.out.println("Console Minesweeper By Federico Longhin V1.2\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
+    System.out.println("Console Minesweeper By Federico Longhin V1.3\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
     MS.printField();
     if(!gameStat){
-
-
     System.out.print("inserisci una coppia di cordinate (riga e colonna): ");
     String[] line= sc.nextLine().split(" ");
     if(line[0].equalsIgnoreCase("exit"))break;
-    MS.toggleCellByName(line);
+     MS.toggleCellByName(line,firstCycle);
+     firstCycle=false;
     }
  }
   while(!gameStat);
