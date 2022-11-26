@@ -62,13 +62,14 @@ public class Minesweeper{
   
   public String getFieldCell(int i, int j){
     String cell="";
-    //if(!fieldVis[i][j])cell="%";
-    if(!fieldVis[i][j])cell=getFormattedCellName(i,j);
-    else if(field[i+1][j+1]==FLAG)cell="\033[31m?   \033[0m";
-    else if(field[i+1][j+1]==MINE)cell="M   ";
+    if(!fieldVis[i][j])cell=getFormattedCellName(i,j);  //default number
+    else if(field[i+1][j+1]==MINE)cell="M   ";                //mine
     else if (field[i+1][j+1]==0) cell="    ";
     else if(field[i+1][j+1]<10) cell +="\033[32m"+field[i+1][j+1]+"   \033[0m";
     else cell ="E";
+    if(field[i+1][j+1]==FLAG)cell="\033[36m?   \033[0m"; //flag
+
+    if(gameLosed()&&field[i+1][j+1]==MINE)cell="\033[31mM   \033[0m";
     return cell;
   }
 
@@ -91,9 +92,7 @@ public class Minesweeper{
         expandVisibility(i,j);
       }
       else{ //flag mode
-        field[i+1][j+1]=FLAG;
-        fieldVis[i][j]=true;
-      }
+        field[i+1][j+1]=FLAG;      }
     }
   }
 
@@ -136,7 +135,12 @@ public class Minesweeper{
     }
        fieldVis[i][j]=true;   
   }
-  
+  public boolean ceckForWin(){
+    int visCell=0;
+    for(int i=0;i<WIDTH*HEIGHT;i++)visCell+=fieldVis[i/WIDTH][i%WIDTH]?1:0;
+    if(visCell>=WIDTH*HEIGHT-MINE)return true;
+    return false;
+  }
 
 final int MINE=11;
 int FLAG=12;
