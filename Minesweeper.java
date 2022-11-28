@@ -6,6 +6,8 @@ public class Minesweeper{
     this.MINE_NUMBER=MINE_NUMBER;
     field=new int[HEIGHT+2][WIDTH+2];
     fieldVis=new boolean[HEIGHT][WIDTH];
+    fieldFlag=new boolean[HEIGHT][WIDTH];
+
   }
   
   public void firstToggle(int i, int j){
@@ -77,7 +79,7 @@ public class Minesweeper{
     else if (field[i+1][j+1]==0) cell="    ";
     else if(field[i+1][j+1]<10) cell +="\033[32m"+field[i+1][j+1]+"   \033[0m";
     else cell ="E";
-    if(field[i+1][j+1]==FLAG)cell="\033[36m?   \033[0m"; //flag
+    if(fieldFlag[i][j])cell="\033[36m?   \033[0m"; //flag
 
     if(gameLosed()&&field[i+1][j+1]==MINE)cell="\033[31mM   \033[0m";
     return cell;
@@ -96,13 +98,15 @@ public class Minesweeper{
   public void toggleCell(int i, int j, boolean mode){
     if(!fieldVis[i][j]){
       if(mode==NORMAL_MODE){
-        if(field[i+1][j+1]==MINE){
-          lose=true;
+        if(!fieldFlag[i][j]){
+          if(field[i+1][j+1]==MINE){
+            lose=true;
+          }
+          expandVisibility(i,j);
         }
-        expandVisibility(i,j);
       }
       else{ //flag mode
-        field[i+1][j+1]=FLAG;      
+        fieldFlag[i][j]=!fieldFlag[i][j];      
       }
     }
   }
@@ -134,10 +138,6 @@ public class Minesweeper{
     }
   }
   
- public boolean gameLosed(){
-    return lose;
-  }
-  
   public void expandVisibility(int i, int j){
   //System.out.println("ceck for: "+i+" "+j);
     if(field[i+1][j+1]==0&&!fieldVis[i][j]){
@@ -149,10 +149,18 @@ public class Minesweeper{
     }
        fieldVis[i][j]=true;   
   }
+
+  /* ---------GAME STATUS--------- */
+
+ public boolean gameLosed(){
+    return lose;
+  }
+  
   public boolean ceckForWin(){
     int visCell=0;
     for(int i=0;i<WIDTH*HEIGHT;i++)visCell+=fieldVis[i/WIDTH][i%WIDTH]?1:0;
-    if(visCell>=WIDTH*HEIGHT-MINE)return true;
+    if(visCell>=((WIDTH*HEIGHT)-MINE_NUMBER))return true;
+    else
     return false;
   }
 
@@ -163,6 +171,7 @@ int WIDTH;
 int MINE_NUMBER;
 int[][]field;
 boolean[][]fieldVis;
+boolean[][]fieldFlag;
 boolean lose=false;
 final boolean NORMAL_MODE=true;
 

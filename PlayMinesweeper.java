@@ -8,7 +8,7 @@ public class PlayMinesweeper{
   boolean firstCycle=true;
   do{
     if(MS.gameLosed()||MS.ceckForWin())gameStat=true;
-    System.out.print("\033\143"); //clear screen
+   // System.out.print("\033\143"); //clear screen
     System.out.println("Console Minesweeper By Federico Longhin V1.3\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
     MS.printField();
     if(!gameStat){
@@ -20,7 +20,7 @@ public class PlayMinesweeper{
     }
  }
   while(!gameStat);
-  if(MS.gameLosed())System.out.println("HAI PERSO");
+  if(!MS.ceckForWin())System.out.println("HAI PERSO");
 else System.out.println("HAI VINTO");
  }
   
