@@ -20,7 +20,7 @@ public class Minesweeper{
     toggleCell(i,j,true);
   }
 
-  public void generateNumbers(){
+  private void generateNumbers(){
     for(int i=1;i<HEIGHT+1;i++){
       for (int j=1;j<WIDTH+1;j++){
         if(field[i][j]!=MINE){
@@ -38,7 +38,7 @@ public class Minesweeper{
     }
   }
 
-  public void generateMines(){
+  private void generateMines(){
     Random rand=new Random();
     int placedMines=0,i,j;
     while(placedMines<MINE_NUMBER){
@@ -72,7 +72,7 @@ public class Minesweeper{
       System.out.println();
   }
   
-  public String getFieldCell(int i, int j){
+  private String getFieldCell(int i, int j){
     String cell="";
     if(!fieldVis[i][j])cell=getFormattedCellName(i,j);  //default number
     else if(field[i+1][j+1]==MINE)cell="M   ";                //mine
@@ -138,7 +138,7 @@ public class Minesweeper{
     }
   }
   
-  public void expandVisibility(int i, int j){
+  private void expandVisibility(int i, int j){
   //System.out.println("ceck for: "+i+" "+j);
     if(field[i+1][j+1]==0&&!fieldVis[i][j]){
     fieldVis[i][j]=true;  
@@ -164,11 +164,46 @@ public class Minesweeper{
     return false;
   }
 
+  /* ---------CELLS STAT--------- */
+
+  public int getNumberFlag(int i, int j){
+    int nFlag=0;
+    for(int z=0;z<9;z++){
+      if(i-1+z/3>=0 && i-1+z/3<HEIGHT && j-1+z%3>=0 && j-1+z%3<WIDTH){
+        if(fieldFlag[i-1+z/3][j-1+z%3])nFlag++;
+      }
+    }
+    return nFlag;
+  }
+
+  public boolean isCellVisible(int i, int j){
+    return fieldVis[i][j];
+  }
+    
+    //if cell has to be ckicked (false if number, blank or flag)
+    public boolean isCelltoDiscover(int i, int j){
+    return !(fieldVis[i][j]||fieldFlag[i][j]);
+  }
+
+  public int getCellValue(int i, int j){
+    return fieldVis[i][j]?field[i+1][j+1]:-1;
+  }
+
+  public int getNumberToDiscover(int i, int j){
+    int nDis=0;
+    for(int z=0;z<9;z++){
+      if(i-1+z/3>=0 && i-1+z/3<HEIGHT && j-1+z%3>=0 && j-1+z%3<WIDTH){
+        if(isCelltoDiscover(i-1+z/3,j-1+z%3))nDis++;
+      }
+    }
+    return nDis;
+  }
+
 final int MINE=11;
 int FLAG=12;
-int HEIGHT;
-int WIDTH;
-int MINE_NUMBER;
+public int HEIGHT;
+public int WIDTH;
+public int MINE_NUMBER;
 int[][]field;
 boolean[][]fieldVis;
 boolean[][]fieldFlag;
