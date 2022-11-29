@@ -59,7 +59,7 @@ public class Minesweeper{
         System.out.print(getFieldCell(i,j));
         //if(j<WIDTH-1)System.out.print("  ");
       }
-      System.out.println("|");
+      System.out.println("| "+i);
     }
     printBar(WIDTH);
   }
@@ -182,7 +182,10 @@ public class Minesweeper{
     
     //if cell has to be ckicked (false if number, blank or flag)
     public boolean isCelltoDiscover(int i, int j){
-    return !(fieldVis[i][j]||fieldFlag[i][j]);
+    boolean cell=true;
+    if(fieldVis[i][j])cell=false;
+    if(fieldFlag[i][j])cell=false;
+    return cell;
   }
 
   public int getCellValue(int i, int j){
@@ -209,5 +212,5 @@ boolean[][]fieldVis;
 boolean[][]fieldFlag;
 boolean lose=false;
 final boolean NORMAL_MODE=true;
-
+final int MOLT_CONST=100;
 }

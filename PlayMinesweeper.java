@@ -32,7 +32,15 @@ public class PlayMinesweeper{
         for (int j=0;j<w;j++){
           int val=MSS.predictNearCell(i,j,MS);
           System.out.println(val);
-          if(val!=-1)MS.toggleCell(val/MS.WIDTH,val%MS.WIDTH,false);
+          if(val!=-1){
+            if(val>=0){//flag type
+              MS.toggleCell(val%MS.MOLT_CONST,val/MS.MOLT_CONST,false);
+            System.out.println("toggling: "+val%MS.MOLT_CONST+" "+val/MS.MOLT_CONST );
+            }
+            //else{
+            //  MS.toggleCell(val/MS.HEIGHT,val%MS.HEIGHT,true);
+            // }
+          }
         }
       }
     //System.out.println(MSS.predictCell(Integer.parseInt(line[1]),Integer.parseInt(line[2]),MS));
