@@ -15,7 +15,8 @@ public class MinesweeperSolver{
          return -2;
 }
 
-    public int predictNearCell(int i, int j, Minesweeper ms){
+    public int[] predictNearCell(int i, int j, Minesweeper ms){
+      int[]res={-1,0};
         if(ms.getCellValue(i,j)>0 && ms.getCellValue(i,j)!=MINE ){ //if the cell has a number
           //System.out.println("Predicting "+i+" "+j);
           if(ms.getNumberToDiscover(i,j)==ms.getCellValue(i,j)-ms.getNumberFlag(i,j) ||ms.getCellValue(i,j)==ms.getNumberFlag(i,j)){  //if the number of cell to discover is equal to the number - flags 
@@ -29,20 +30,24 @@ public class MinesweeperSolver{
                       temp+=ni;
                     if(ms.getNumberFlag(i,j)!=ms.getCellValue(i,j)){//safe cell
                       //System.out.print("returned "+temp);
-                      return temp;
+                      res[0]=1;
+                      res[1]=temp;
+                      return res;
                     }
                     else{
                       //System.out.print("val to ret2 "+ ((temp))+" i,j: "+ni+" "+nj);
                       temp=-temp-1;
                       //System.out.println("returned2 "+ ((temp)));
-                      return temp;
+                      res[0]=1;
+                      res[1]=temp;
+                      return res;
                     }
                   }
                 }
               }
             }
       }
-      return -1;
+      return res;
   }
 
 final int MINE=11;

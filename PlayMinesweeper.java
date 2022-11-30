@@ -11,7 +11,7 @@ public class PlayMinesweeper{
   do{
     if(MS.gameLosed()||MS.ceckForWin())gameStat=true;
     System.out.print("\033\143"); //clear screen
-    System.out.println("Console Minesweeper By Federico Longhin V2.5\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
+    System.out.println("Console Minesweeper By Federico Longhin V2.6\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
     MS.printField();
     if(!gameStat){
       System.out.print("inserisci il nome della cella: ");
@@ -36,7 +36,6 @@ public class PlayMinesweeper{
           for (int j=0;j<w;j++){
             if(MSS.predictCell(i,j,MS)==1){
               MS.toggleCell(i,j,true);
-              MS.printField();
               pre1Done=true;
             }
           }
@@ -46,9 +45,9 @@ public class PlayMinesweeper{
         notKeyword=false;
         for(int i=0;i<h;i++){
           for (int j=0;j<w;j++){
-            int val=MSS.predictNearCell(i,j,MS);
-            //System.out.println(val);
-            if(val!=-1){
+            int res[]=MSS.predictNearCell(i,j,MS);
+            int val=res[1];
+            if(res[0]!=-1){
               if(val>=0){//flag type
                 MS.toggleCell(val%MS.MOLT_CONST,val/MS.MOLT_CONST,false);
                 //System.out.println("toggling: "+val%MS.MOLT_CONST+" "+val/MS.MOLT_CONST );
