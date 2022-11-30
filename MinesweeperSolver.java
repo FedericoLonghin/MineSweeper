@@ -3,7 +3,7 @@ public class MinesweeperSolver{
     }
 
     public int predictCell(int i, int j, Minesweeper ms){
-        System.out.println("Predicting "+i+" "+j);
+        //System.out.println("Predicting "+i+" "+j);
         if(ms.isCelltoDiscover(i,j)){ //if the cell is to be discovered
             for(int z=0;z<9;z++){
                 if(i-1+z/3>=0 && i-1+z/3<ms.HEIGHT && j-1+z%3>=0 && j-1+z%3<ms.WIDTH){
@@ -17,9 +17,9 @@ public class MinesweeperSolver{
 
     public int predictNearCell(int i, int j, Minesweeper ms){
         if(ms.getCellValue(i,j)>0 && ms.getCellValue(i,j)!=MINE ){ //if the cell has a number
-          System.out.println("Predicting "+i+" "+j);
+          //System.out.println("Predicting "+i+" "+j);
           if(ms.getNumberToDiscover(i,j)==ms.getCellValue(i,j)-ms.getNumberFlag(i,j) ||ms.getCellValue(i,j)==ms.getNumberFlag(i,j)){  //if the number of cell to discover is equal to the number - flags 
-            System.out.println("cell "+i+" "+j+" is near somethng good; has "+ms.getNumberToDiscover(i,j)+" cell to discover");
+            //System.out.println("cell "+i+" "+j+" is near somethng good; has "+ms.getNumberToDiscover(i,j)+" cell to discover");
             for(int z=0;z<9;z++){
                 int ni=i-1+z/3;
                 int nj=j-1+z%3;
@@ -28,13 +28,13 @@ public class MinesweeperSolver{
                       int temp= nj*ms.MOLT_CONST;
                       temp+=ni;
                     if(ms.getNumberFlag(i,j)!=ms.getCellValue(i,j)){//safe cell
-                      System.out.print("returned "+temp);
+                      //System.out.print("returned "+temp);
                       return temp;
                     }
                     else{
-                      System.out.print("val to ret2 "+ ((temp))+" i,j: "+ni+" "+nj);
+                      //System.out.print("val to ret2 "+ ((temp))+" i,j: "+ni+" "+nj);
                       temp=-temp-1;
-                      System.out.println("returned2 "+ ((temp)));
+                      //System.out.println("returned2 "+ ((temp)));
                       return temp;
                     }
                   }
