@@ -31,6 +31,12 @@ public class MinesweeperSolver{
                       System.out.print("returned "+temp);
                       return temp;
                     }
+                    else{
+                      System.out.print("val to ret2 "+ ((temp))+" i,j: "+ni+" "+nj);
+                      temp=-temp-1;
+                      System.out.println("returned2 "+ ((temp)));
+                      return temp;
+                    }
                   }
                 }
               }
