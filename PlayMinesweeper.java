@@ -11,7 +11,7 @@ public class PlayMinesweeper{
   do{
     if(MS.gameLosed()||MS.ceckForWin())gameStat=true;
   // System.out.print("\033\143"); //clear screen
-    System.out.println("Console Minesweeper By Federico Longhin V2.2\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
+    System.out.println("Console Minesweeper By Federico Longhin V2.3\nPress your key combination to reveal your cell, add the letter \"F\" to indicate a flag, type \"exit\" for closing the game.\nYou have "+m+" bomb to find!\n" );
     MS.printField();
     if(!gameStat){
     System.out.print("inserisci una coppia di cordinate (riga e colonna): ");
@@ -37,9 +37,12 @@ public class PlayMinesweeper{
               MS.toggleCell(val%MS.MOLT_CONST,val/MS.MOLT_CONST,false);
             System.out.println("toggling: "+val%MS.MOLT_CONST+" "+val/MS.MOLT_CONST );
             }
-            //else{
-            //  MS.toggleCell(val/MS.HEIGHT,val%MS.HEIGHT,true);
-            // }
+            else{
+              val++;
+              val=val*-1;
+              MS.toggleCell(val%MS.MOLT_CONST,val/MS.MOLT_CONST,true);
+            System.out.println("toggling2: "+val%MS.MOLT_CONST+" "+val/MS.MOLT_CONST );
+             }
           }
         }
       }

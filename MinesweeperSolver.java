@@ -18,23 +18,19 @@ public class MinesweeperSolver{
     public int predictNearCell(int i, int j, Minesweeper ms){
         if(ms.getCellValue(i,j)>0 && ms.getCellValue(i,j)!=MINE ){ //if the cell has a number
           System.out.println("Predicting "+i+" "+j);
-          if(ms.getNumberToDiscover(i,j)==ms.getCellValue(i,j)){
+          if(ms.getNumberToDiscover(i,j)==ms.getCellValue(i,j)-ms.getNumberFlag(i,j) ||ms.getCellValue(i,j)==ms.getNumberFlag(i,j)){  //if the number of cell to discover is equal to the number - flags 
             System.out.println("cell "+i+" "+j+" is near somethng good; has "+ms.getNumberToDiscover(i,j)+" cell to discover");
             for(int z=0;z<9;z++){
                 int ni=i-1+z/3;
                 int nj=j-1+z%3;
                 if(ni>=0 && ni<ms.HEIGHT && nj>=0 && nj<ms.WIDTH){
                   if(ms.isCelltoDiscover(ni,nj)){
-                    if(ms.getNumberFlag(i,j)!=ms.getCellValue(i,j)){//safe cell
                       int temp= nj*ms.MOLT_CONST;
                       temp+=ni;
+                    if(ms.getNumberFlag(i,j)!=ms.getCellValue(i,j)){//safe cell
                       System.out.print("returned "+temp);
                       return temp;
                     }
-                   // else{
-                   // System.out.print("returned "+ ((-1*ms.HEIGHT*ni*nj)-1));
-                   //   return ni+nj*ms.WIDTH;
-                   // }
                   }
                 }
               }
