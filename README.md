@@ -1,6 +1,8 @@
 # MineSweeper
 A console based java Minesweeper
 
+![Field image](/Img.png)
+
 ## To execute:
 Run the following command to download and execute the program:
 

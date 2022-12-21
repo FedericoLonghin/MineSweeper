@@ -59,7 +59,7 @@ public class Minesweeper{
         System.out.print(getFieldCell(i,j));
         //if(j<WIDTH-1)System.out.print("  ");
       }
-      System.out.println("| "+i);
+      System.out.println("| ");
     }
     printBar(WIDTH);
   }

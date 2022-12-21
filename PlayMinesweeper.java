@@ -70,7 +70,7 @@ public class PlayMinesweeper{
       }
     }
     if(!(pre1Done||pre2Done))preAutomation=false;
-    if(preAutomation)try {Thread.sleep(100);}
+    if(preAutomation)try {Thread.sleep(50);}
     catch(InterruptedException ex){
     Thread.currentThread().interrupt();
     }
